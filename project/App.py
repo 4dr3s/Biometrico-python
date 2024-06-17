@@ -1,7 +1,18 @@
 from flask import Flask, request, jsonify
 from project.Service.EmpleadoSrv import EmpleadoSrv
+from project.Connection.db import db
 
 app = Flask(__name__)
+
+
+@app.before_request
+def before():
+    request.connection = db.get_db()
+
+
+@app.teardown_request
+def teardown(exception=None):
+    db.close_connect()
 
 
 @app.route('/')

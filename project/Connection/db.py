@@ -14,9 +14,6 @@ class db:
         return connect
 
     @staticmethod
-    def close_db():
+    def close_connect():
         db.get_db().close()
-
-    @staticmethod
-    def init_app(app):
-        app.teardown_appcontext(db.close_db)
+        

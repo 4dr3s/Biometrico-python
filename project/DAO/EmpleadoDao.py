@@ -1,14 +1,7 @@
-from project.Connection.db import db
+from project.DAO.DataBaseConnectionDao import DataBaseConnectionDao
 
 
-class EmpleadoDao:
-
-    def __init__(self):
-        self.connection = db.get_db()
-        self.cursor = self.connection.cursor()
-
-    def close_cursor(self):
-        self.cursor.close()
+class EmpleadoDao(DataBaseConnectionDao):
 
     def get_workers(self):
         cursor = self.cursor
