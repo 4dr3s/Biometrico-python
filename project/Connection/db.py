@@ -1,5 +1,4 @@
 import mysql.connector as connection
-from flask import g, current_app
 
 
 class db:
