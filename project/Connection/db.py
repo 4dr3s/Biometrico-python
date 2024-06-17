@@ -6,13 +6,13 @@ class db:
 
     @staticmethod
     def get_db():
-        conect = connection.connect(
+        connect = connection.connect(
                 host='localhost',
                 database='biometrico',
                 user='root',
                 password='12345'
         )
-        return conect
+        return connect
 
     @staticmethod
     def close_db():

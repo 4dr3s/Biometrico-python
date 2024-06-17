@@ -1,15 +1,14 @@
 from flask import Flask
-from flask import jsonify
-from project.DAO.EmpleadoDao import EmpleadoDao
+from project.Service.EmpleadoSrv import EmpleadoSrv
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def show():
-    workers = EmpleadoDao()
-    data = workers.get_workers()
-    return jsonify(data)
+    data = EmpleadoSrv.find_workers()
+    result = [worker.to_json() for worker in data]
+    return result
 
 
 if __name__ == '__main__':
