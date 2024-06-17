@@ -23,3 +23,21 @@ class EmpleadoSrv:
             )
             array.append(worker)
         return array
+
+    @staticmethod
+    def find_worker(id_empleado):
+        worker = EmpleadoDao()
+        result = worker.get_worker(id_empleado)
+        worker = EmpleadoDto(
+                id_empleado=result[0],
+                id_tipo_empleado=result[1],
+                id_modalidad=result[2],
+                id_rol=result[3],
+                id_huella=result[4],
+                id_token=result[5],
+                num_identificacion=result[6],
+                nombre_completo=result[7],
+                correo=result[8],
+                estado=result[9]
+        )
+        return worker
