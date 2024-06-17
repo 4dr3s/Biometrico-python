@@ -1,6 +1,8 @@
 from project.DAO.EmpleadoDao import EmpleadoDao
 from project.DTO.EmpleadoDto import EmpleadoDto
 
+# Esta es la clase de Empleado para los servicios
+
 
 class EmpleadoSrv:
     @staticmethod
