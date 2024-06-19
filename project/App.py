@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from project.Service.EmpleadoSrv import EmpleadoSrv
 from project.Connection.db import db
 
