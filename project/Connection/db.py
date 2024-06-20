@@ -1,19 +1,18 @@
-import mysql.connector as connection
+from sqlalchemy import create_engine
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import sessionmaker, scoped_session
+from project.Config import Config
+
+db = SQLAlchemy()
+
+engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
+session_factory = sessionmaker(bind=engine)
+Session = scoped_session(session_factory)
 
 
-class db:
+def init_app(app):
+    db.init_app(app)
 
-    @staticmethod
-    def get_db():
-        connect = connection.connect(
-                host='localhost',
-                database='biometrico',
-                user='root',
-                password='12345'
-        )
-        return connect
 
-    @staticmethod
-    def close_connect():
-        db.get_db().close()
-        
+def get_session():
+    return Session()

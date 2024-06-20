@@ -1,32 +1,25 @@
 from flask import Flask, request
 from project.Service.EmpleadoSrv import EmpleadoSrv
-from project.Connection.db import db
+from project.Connection.db import init_app, get_session
+from project.Config import Config
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
-
-@app.before_request
-def before():
-    request.connection = db.get_db()
-
-
-@app.teardown_request
-def teardown(exception=None):
-    db.close_connect()
+init_app(app)
 
 
 @app.route('/')
 def show():
-    data = EmpleadoSrv.find_workers()
-    result = [worker.to_json() for worker in data]
-    return result
+    data = EmpleadoSrv.find_workers(get_session())
+    return data
 
 
 @app.route('/empleado', methods=['POST'])
 def find_worker():
     parameter = request.form.get('id_empleado')
-    data = EmpleadoSrv.find_worker(parameter)
-    return data.to_json()
+    data = EmpleadoSrv.find_worker(get_session(), parameter)
+    return data
 
 
 if __name__ == '__main__':

@@ -1,20 +1,15 @@
-from project.DAO.DataBaseConnectionDao import DataBaseConnectionDao
+from sqlalchemy import text
 
 
-class EmpleadoDao(DataBaseConnectionDao):
+class EmpleadoDao:
+
+    def __init__(self, session):
+        self.session = session
 
     def get_workers(self):
-        cursor = self.cursor
-        query = 'CALL show_empleados();'
-        cursor.execute(query)
-        result = cursor.fetchall()
-        self.close_cursor()
-        return result
+        result = self.session.execute(text('Call show_empleados();'))
+        return result.fetchall()
 
     def get_worker(self, id_empleado):
-        cursor = self.cursor
-        query = f'CALL show_empleado({id_empleado});'
-        cursor.execute(query)
-        result = cursor.fetchone()
-        self.close_cursor()
-        return result
+        result = self.session.execute(text('Call show_empleado(:id);'), {'id': id_empleado})
+        return result.fetchone()

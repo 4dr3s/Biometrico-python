@@ -17,21 +17,18 @@ class EmpleadoSrv:
             correo=result[8],
             estado=result[9]
         )
-        return worker
+        return worker.to_json()
 
     @staticmethod
-    def find_workers():
-        worker = EmpleadoDao()
-        result = worker.get_workers()
-        array = []
-        for i in result:
-            worker = EmpleadoSrv.json_format(i)
-            array.append(worker)
+    def find_workers(session):
+        connection = EmpleadoDao(session)
+        result = connection.get_workers()
+        array = [EmpleadoSrv.json_format(i) for i in result]
         return array
 
     @staticmethod
-    def find_worker(id_empleado):
-        worker = EmpleadoDao()
-        result = worker.get_worker(id_empleado)
+    def find_worker(session, id_empleado):
+        connection = EmpleadoDao(session)
+        result = connection.get_worker(id_empleado)
         worker = EmpleadoSrv.json_format(result)
         return worker
